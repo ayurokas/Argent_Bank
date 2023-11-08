@@ -1,0 +1,226 @@
+swagger: "2.0"
+info: 
+  description: "ArgentBank API documentation for the transaction page: contains all available API endpoints in this codebase."
+  version: 1.0.0
+  title: "ArgentBank : API documentation for the transactions"
+  termsOfService: http://swagger.io/terms/
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - https
+  - http
+paths:
+  /transaction/{userId}/{month}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions for current month
+      summary: An identified user can see all his transactions for the current month.
+      description: "API for fetching the transations in the current month for an identified user"
+      operationId: readAllTransactions
+      parameters:
+        - in: header
+          name: Authorization
+          description: "Attach Bearer JWT token"
+          type: string
+          required: true
+        - in: path
+          name: userId
+          required: true
+          type: integer
+          description: "An identified user's id"
+        - in: path
+          name: month
+          required: true
+          type: string
+          description: "Cuurent month"
+      responses:
+        "200":
+          description: "Successfully get user's all transactions for the current month"
+          schema:
+            $ref: "#/definitions/Transactions"
+        "404":
+          description: "Requested Resource Not Found"
+        "500":
+          description: "Internal Server Error"
+  /transaction/create/{userId}:
+    post:
+      security:
+        - Bearer: []
+      tags:
+       - Create a new transaction
+      summary: Add a new transaction information for an identified user.
+      description: "API for adding a new transaction information for an identified user"
+      operationId: createTransaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: "Attach Bearer JWT token"
+          type: string
+          required: true
+        - in: path
+          name: userId
+          required: true
+          type: integer
+          description: "a specific user's id"
+        - in: body
+          name: body
+          description: "Created transaction object"
+          required: true
+          schema:
+            $ref: "#/definitions/Transactions"
+      responses:
+        "200":
+          description: "Successfully created a transaction!"
+          schema:
+            $ref: "#/definitions/Transactions"
+        "400":
+          description: "Invalid Fields"
+        "500":
+          description: "Internal Server Error"
+  /transaction/operation/{userId}/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Read, update and delete an existent transaction
+      summary: View the details of a specific transaction in another view.
+      description: "API for fetching an existent transaction in detail"
+      operationId: readUniqueTransaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: "Attach Bearer JWT token"
+          type: string
+          required: true
+        - in: path
+          name: userId
+          required: true
+          type: integer
+          description: "a specific user's id"
+        - in: path
+          name: transactionId
+          required: true
+          type: integer
+          description: "Transaction unique id"
+      responses:
+        "200":
+          description: "Successfully get an user's specific transaction!"
+          schema:
+            $ref: "#/definitions/Transactions"
+        "404":
+          description: "Requested Resource Not Found"
+        "500":
+          description: "Internal Server Error"
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Read, update and delete an existent transaction
+      summary: Edit a specific transaction information for an identified user.
+      description: "API for updating an existent transaction"
+      operationId: updateTransaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: "Attach Bearer JWT token"
+          type: string
+          required: true
+        - in: path
+          name: userId
+          required: true
+          type: integer
+          description: "a specific user's id"
+        - in: path
+          name: transactionId
+          required: true
+          type: integer
+          description: "Transaction unique id"
+        - in: body
+          name: body
+          description: "Updated transaction object"
+          required: true
+          schema:
+            $ref: "#/definitions/Transactions"
+      responses:
+        "200":
+          description: "Successfully updated an user's specific transaction!"
+          schema:
+            $ref: "#/definitions/Transactions"
+        "404":
+          description: "Requested Resource Not Found"
+        "500":
+          description: "Internal Server Error"
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Read, update and delete an existent transaction
+      summary: Deletes a specific transaction information for an identified user.
+      description: "API for deleting an existent transaction"
+      operationId: deleteTransaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: "Attach Bearer JWT token"
+          type: string
+          required: true
+        - in: path
+          name: userId
+          required: true
+          type: integer
+          description: "a specifi user's id"
+        - in: path
+          name: transactionId
+          required: true
+          type: integer
+          description: "Transaction unique id"
+      responses:
+        "200":
+          description: "Successfully delete an existent transaction!"
+          schema:
+            $ref: "#/definitions/Transactions"
+        "404":
+          description: "Requested Resource Not Found"
+        "500":
+          description: "Internal Server Error"
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  Transactions:
+    type: object
+    properties:
+      transactions:
+        type: object
+        properties:
+          id:
+            type: string
+            format: int64
+            description: "User id"
+            example: 20
+          date:
+            type: string
+            format: date-time
+            example: 2023-07-07T11:07:18.766Z
+          description:
+            type: string
+            example: ArgentBank notification
+          amount:
+            type: integer
+            example: 200
+          balance:
+            type: integer
+            example: 5000
+          type:
+            type: string
+            example: Water
+          category:
+            type: string
+            example: Household
+          notes:
+            type: string
+            example: Water bill for June 2023
