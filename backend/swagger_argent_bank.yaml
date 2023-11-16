@@ -1,0 +1,208 @@
+swagger: "2.0"
+info: 
+  description: "ArgentBank API documentation for the transaction page: contains all available API endpoints in this codebase."
+  version: 1.0.0
+  title: "ArgentBank : API documentation for the transactions"
+  termsOfService: http://swagger.io/terms/
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - https
+  - http
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    in: header
+    name: Authorization
+security:
+  - Bearer: []
+paths:
+  /transaction/{userId}/{month}:
+    get:
+      tags:
+        - Transactions for current month
+      summary: An identified user can see all his transactions for the current month.
+      description: "API for fetching the transactions in the current month for an identified user"
+      operationId: readAllTransactions
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          type: integer
+          description: "An identified user's id"
+        - in: path
+          name: month
+          required: true
+          type: string
+          description: "Current month in YYYY-MM format"
+      responses:
+        "200":
+          description: "Successfully retrieved user's all transactions for the current month"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/TransactionDetails"
+        "404":
+          description: "Requested Resource Not Found"
+        "500":
+          description: "Internal Server Error"
+  /transaction/create/{userId}:
+    post:
+      tags:
+       - Create a new transaction
+      summary: Add a new transaction information for an identified user.
+      description: "API for adding a new transaction information for an identified user"
+      operationId: createTransaction
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          type: integer
+          description: "A specific user's id"
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionUpdate"
+      responses:
+        "200":
+          description: "Successfully created a transaction!"
+          schema:
+            $ref: "#/definitions/TransactionDetails"
+        "400":
+          description: "Invalid Fields"
+        "500":
+          description: "Internal Server Error"
+  /transaction/operation/{userId}/{transactionId}:
+    get:
+      tags:
+        - Read, update and delete an existent transaction
+      summary: View the details of a specific transaction in another view.
+      description: "API for fetching an existent transaction in detail"
+      operationId: readUniqueTransaction
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          type: integer
+          description: "A specific user's id"
+        - in: path
+          name: transactionId
+          required: true
+          type: integer
+          description: "Transaction unique id"
+      responses:
+        "200":
+          description: "Successfully got a user's specific transaction!"
+          schema:
+            $ref: "#/definitions/TransactionDetails"
+        "404":
+          description: "Requested Resource Not Found"
+        "500":
+          description: "Internal Server Error"
+    put:
+      tags:
+        - Read, update and delete an existent transaction
+      summary: Edit a specific transaction information for an identified user.
+      description: "API for updating an existent transaction"
+      operationId: updateTransaction
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          type: integer
+          description: "A specific user's id"
+        - in: path
+          name: transactionId
+          required: true
+          type: integer
+          description: "Transaction unique id"
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionUpdate"
+      responses:
+        "200":
+          description: "Successfully updated a user's specific transaction!"
+          schema:
+            $ref: "#/definitions/TransactionDetails"
+        "404":
+          description: "Requested Resource Not Found"
+        "500":
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - Read, update and delete an existent transaction
+      summary: Deletes a specific transaction information for an identified user.
+      description: "API for deleting an existent transaction"
+      operationId: deleteTransaction
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          type: integer
+          description: "A specific user's id"
+        - in: path
+          name: transactionId
+          required: true
+          type: integer
+          description: "Transaction unique id"
+      responses:
+        "200":
+          description: "Successfully deleted an existent transaction!"
+          schema:
+            $ref: "#/definitions/TransactionDetails"
+        "404":
+          description: "Requested Resource Not Found"
+        "500":
+          description: "Internal Server Error"
+definitions:
+  TransactionDetails:
+    type: "object"
+    properties:
+      transactionId:
+        type: "string"
+        example: "txn_123456789"
+      accountId:
+        type: "string"
+        example: "acc_987654321"
+      date:
+        type: "string"
+        format: "date-time"
+        example: "2023-07-07T12:34:56Z"
+      description:
+        type: "string"
+        example: "Coffee shop purchase"
+      amount:
+        type: "number"
+        example: -3.50
+      balanceAfterTransaction:
+        type: "number"
+        example: 1020.75
+      transactionType:
+        type: "string"
+        enum:
+          - "debit"
+          - "credit"
+        example: "debit"
+      category:
+        type: "string"
+        example: "Food & Beverages"
+      notes:
+        type: "string"
+        example: "Latte and croissant"
+  TransactionUpdate:
+    type: "object"
+    properties:
+      date:
+        type: "string"
+        format: "date-time"
+      description:
+        type: "string"
+      amount:
+        type: "number"
+      category:
+        type: "string"
+      notes:
+        type: "string"

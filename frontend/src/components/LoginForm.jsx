@@ -1,4 +1,5 @@
-import React, { useState } from 'react'; // Ajout de { useState }
+import { useEffect } from 'react';
+import { React, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { getToken, getUser } from '../utils/apiFetch';
@@ -12,10 +13,10 @@ export default function LoginForm() {
     const [passwordError, setPasswordError] = useState('');
     const [messageError, setMessageError] = useState('');
 
+    let navigate = useNavigate();
+
     const dispatch = useDispatch();
     const isLogged = useSelector((state) => state.loggedReducer);
-
-    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -51,17 +52,15 @@ export default function LoginForm() {
             dispatch(loggedIn());
             console.log(dataUser.body.firstName);
             console.log(dataUser.body.lastName);
-            
-            // Conditionnellement naviguer après une connexion réussie
-            if (!isLogged) {
-                navigate('/user');
-            }
+            return navigate('/user');
         }
     };
-
-    if (isLogged) {
-        return navigate('/user');
-    }
+    
+    useEffect(() => {
+        if (isLogged) {
+            navigate('/user');
+        }
+    }, [isLogged, navigate]);
 
     return (
         <form onSubmit={handleSubmit}>
