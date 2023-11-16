@@ -66,12 +66,12 @@ export default function LoginForm() {
         <form onSubmit={handleSubmit}>
             <div className='input-wrapper'>
                 <label htmlFor='username'>Username</label>
-                <input type='text' id='username' value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type='text' id='username' autoComplete="username"value={email} onChange={(e) => setEmail(e.target.value)} />
                 <p className='email_error'>{emailError}</p>
             </div>
             <div className='input-wrapper'>
                 <label htmlFor='password'>Password</label>
-                <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input type='password' id='password' autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <p className='password_error'>{passwordError}</p>
             </div>
             <div className='input-remember'>
