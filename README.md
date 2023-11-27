@@ -18,7 +18,7 @@ Tony Stark
 
 Steve Rogers
 
-First Name: Steve,
-Last Name: Rogers,
-Email: steve@rogers.com,
-Password: password456
+- First Name: Steve,
+- Last Name: Rogers,
+- Email: steve@rogers.com,
+- Password: password456
