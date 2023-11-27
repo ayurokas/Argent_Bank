@@ -285,6 +285,11 @@
     border: 3px solid #00bc77;
   }
 
+  @media (min-width: 920px) {
+    .names-edit input {
+        width: 20%; 
+    }
+}
   .button {
     width: 100px;
     margin-top: 2%;
