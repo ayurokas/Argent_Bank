@@ -1,8 +1,8 @@
+// Reducer 'loggedReducer' pour l'état de connexion dans Redux. 
+// Gère l'état de connexion avec les actions 'LOGGED_IN' et 'LOGGED_OUT'.
+
 const LOGGED_IN = "LOGGED_IN";
 const LOGGED_OUT = "LOGGED_OUT";
-
-// Réducteur pour gérer l'état de connexion d'un utilisateur (true pour connecté, false pour déconnecté)
-
 
 const initialState = false;
 

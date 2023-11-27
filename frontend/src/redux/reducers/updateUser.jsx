@@ -1,5 +1,7 @@
+// Reducer pour mettre à jour les informations de profil de l'utilisateur dans l'application.
+
+
 const UPDATE_PROFILE_DATA = "UPDATE_PROFILE_DATA";
-// Réducteur pour gérer la mise à jour des données de profil utilisateur
 
 const initialState = {
     firstName: undefined,

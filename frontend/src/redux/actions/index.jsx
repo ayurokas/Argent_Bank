@@ -1,19 +1,19 @@
-// Action creator pour indiquer qu'un utilisateur est connecté
+// Ce fichier définit des actions Redux pour gérer l'état de l'authentification de l'utilisateur et récupérer les données de l'utilisateur. 
+//Chaque action renvoie un type d'action et, le cas échéant, des données supplémentaires dans le payload.
+
+
 export const loggedIn = () => {
     return {type: "LOGGED_IN"};
 };
 
-// Action creator pour indiquer qu'un utilisateur est déconnecté
 export const loggedOut = () => {
     return {type: "LOGGED_OUT"};
 };
 
-// Action creator pour récupérer les données de l'utilisateur
 export const getUserData = (firstName, lastName) => {
     return {type: "GET_USER_DATA", payload: {firstName, lastName}};
 };
 
-// Action creator pour signaler une erreur de connexion
 export const loginError = (errorMessage) => {
     return {type: "LOGIN_ERROR", payload: errorMessage};
 };
