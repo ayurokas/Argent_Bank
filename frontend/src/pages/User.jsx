@@ -1,3 +1,7 @@
+// Ce composant React, User, affiche les informations du compte utilisateur si connecté, sinon redirige vers la page de connexion. 
+//Il utilise Redux pour vérifier l'état de connexion et affiche des détails de compte.
+
+
 import React from 'react';
 import UserName from '../components/UserName';
 import { useSelector } from 'react-redux';
@@ -45,6 +49,6 @@ export default function User() {
             </section>
         </main>
             )
-            : (<Routes><Route path='/*' element={<Login />} /></Routes>)
+            : (<Routes><Route path='/*' element={<Login />} /></Routes>)//non connecter 
     )
 }
