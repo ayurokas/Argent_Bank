@@ -9,14 +9,10 @@ npm start
 
 
 Tony Stark
-
-First Name: Tony
-
-Last Name: Stark
-
-Email: tony@stark.com
-
-Password: password123
+- First Name: Tony
+- Last Name: Stark
+- Email: tony@stark.com
+- Password: password123
 
 
 
