@@ -1,3 +1,6 @@
+// Ce composant React gère le formulaire de connexion. Il utilise des Hooks pour les états locaux, React Router pour la navigation, et Redux pour l'état global. 
+//Les appels API sont effectués pour obtenir le token et les données de l'utilisateur, avec une gestion des erreurs et une redirection après la connexion réussie.
+
 import { useEffect } from 'react';
 import { React, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +10,8 @@ import { loggedIn } from '../redux/actions';
 import { getUserData } from '../redux/actions';
 
 export default function LoginForm() {
+
+    // Déclaration des états pour gérer les entrées du formulaire et les messages d'erreur.
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -15,26 +20,26 @@ export default function LoginForm() {
 
     let navigate = useNavigate();
 
+    // Utilisation de Redux pour dispatcher des actions et accéder à l'état global.
     const dispatch = useDispatch();
     const isLogged = useSelector((state) => state.loggedReducer);
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault();// Empêche le rechargement de la page
 
-        // Error message
         if (!email) setEmailError('Please enter a valid email');
         else setEmailError('');
         if (!password) setPasswordError('Please enter a password');
         else setPasswordError('');
 
+        // Création de l'objet utilisateur et appel API pour obtenir le token.
         const user = { email, password };
         console.log(user);
 
-        // User logged in
         const dataToken = await getToken(user);
         console.log(dataToken);
 
-        // Stroke token in local storage if user is logged in successfully
+        // Gestion de la réponse du token et stockage dans localStorage.
         if (dataToken.status === 200) {
             localStorage.setItem('token', dataToken.body.token);
         } else {
@@ -43,8 +48,7 @@ export default function LoginForm() {
 
         const token = localStorage.getItem('token');
 
-        // Get user profile data
-
+        // Récupération du token et appel API pour obtenir les données de l'utilisateur.
         if (token) {
             const dataUser = await getUser(token);
             console.log(dataUser);
