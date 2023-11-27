@@ -8,15 +8,15 @@ Frontend :
 npm start
 
 
-Tony Stark
-First Name: Tony
-Last Name: Stark
-Email: tony@stark.com
-Password: password123
+\nTony Stark
+\nFirst Name: Tony
+\nLast Name: Stark
+\nEmail: tony@stark.com
+\nPassword: password123
 
 
-Steve Rogers
-First Name: Steve,
-Last Name: Rogers,
-Email: steve@rogers.com,
-Password: password456
+\nSteve Rogers
+\nFirst Name: Steve,
+\nLast Name: Rogers,
+\nEmail: steve@rogers.com,
+\nPassword: password456
