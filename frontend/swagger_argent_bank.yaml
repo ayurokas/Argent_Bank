@@ -5,7 +5,7 @@ info:
   title: "ArgentBank : API documentation for the transactions"
   termsOfService: http://swagger.io/terms/
 host: localhost:3001
-basePath: /api/v1
+basePath: /api/v2
 schemes:
   - https
   - http
@@ -14,17 +14,22 @@ securityDefinitions:
     type: apiKey
     in: header
     name: Authorization
-security:
-  - Bearer: []
 paths:
   /transaction/{userId}/{month}:
     get:
+      security:
+        - Bearer: []
       tags:
         - Transactions for current month
       summary: An identified user can see all his transactions for the current month.
       description: "API for fetching the transactions in the current month for an identified user"
       operationId: readAllTransactions
       parameters:
+        - in: header
+          name: Authorization
+          description: "Attach Bearer JWT token"
+          type: string
+          required: true
         - in: path
           name: userId
           required: true
@@ -48,12 +53,19 @@ paths:
           description: "Internal Server Error"
   /transaction/create/{userId}:
     post:
+      security:
+        - Bearer: []
       tags:
        - Create a new transaction
       summary: Add a new transaction information for an identified user.
       description: "API for adding a new transaction information for an identified user"
       operationId: createTransaction
       parameters:
+        - in: header
+          name: Authorization
+          description: "Attach Bearer JWT token"
+          type: string
+          required: true
         - in: path
           name: userId
           required: true
@@ -75,12 +87,19 @@ paths:
           description: "Internal Server Error"
   /transaction/operation/{userId}/{transactionId}:
     get:
+      security:
+        - Bearer: []
       tags:
         - Read, update and delete an existent transaction
       summary: View the details of a specific transaction in another view.
       description: "API for fetching an existent transaction in detail"
       operationId: readUniqueTransaction
       parameters:
+        - in: header
+          name: Authorization
+          description: "Attach Bearer JWT token"
+          type: string
+          required: true
         - in: path
           name: userId
           required: true
@@ -101,12 +120,19 @@ paths:
         "500":
           description: "Internal Server Error"
     put:
+      security:
+        - Bearer: []
       tags:
         - Read, update and delete an existent transaction
       summary: Edit a specific transaction information for an identified user.
       description: "API for updating an existent transaction"
       operationId: updateTransaction
       parameters:
+        - in: header
+          name: Authorization
+          description: "Attach Bearer JWT token"
+          type: string
+          required: true
         - in: path
           name: userId
           required: true
@@ -132,12 +158,19 @@ paths:
         "500":
           description: "Internal Server Error"
     delete:
+      security:
+        - Bearer: []
       tags:
         - Read, update and delete an existent transaction
       summary: Deletes a specific transaction information for an identified user.
       description: "API for deleting an existent transaction"
       operationId: deleteTransaction
       parameters:
+        - in: header
+          name: Authorization
+          description: "Attach Bearer JWT token"
+          type: string
+          required: true
         - in: path
           name: userId
           required: true
