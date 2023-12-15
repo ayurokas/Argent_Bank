@@ -1,5 +1,5 @@
 // Reducer pour mettre à jour les informations de profil de l'utilisateur dans l'application.
-// Changement nom . prénom
+
 
 const UPDATE_PROFILE_DATA = "UPDATE_PROFILE_DATA";
 

@@ -176,6 +176,7 @@
     box-sizing: border-box;
     background-color: white;
     width: 300px;
+    height: 385px;
     margin: 0 auto;
     margin-top: 3rem;
     padding: 2rem 1.5rem 1.5rem 1.5rem;
@@ -186,17 +187,8 @@
     margin-left: 5px;
   }
   
-  .password_error {
-    color: red;
-  }
-
-  .email_error {
-    color: red;
-  }
-
   .input-remember {
     display: flex;
-    margin-top: 20px;
   }
   
   .input-remember label {
@@ -209,7 +201,6 @@
     text-align: left;
     width: 100%;
     height: 74px;
-    margin-top: 15px;
   }
   
   .input-wrapper label {
