@@ -1,17 +1,14 @@
-// Ce composant React gère le formulaire de connexion. Il utilise des Hooks pour les états locaux, React Router pour la navigation, et Redux pour l'état global. 
-//Les appels API sont effectués pour obtenir le token et les données de l'utilisateur, avec une gestion des erreurs et une redirection après la connexion réussie.
+// Ce composant React gère le formulaire de connexion. 
+//Les appels API sont effectués pour obtenir le token et les données de l'utilisateur
 
-import { useEffect } from 'react';
-import { React, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { getToken, getUser } from '../utils/apiFetch';
-import { loggedIn } from '../redux/actions';
-import { getUserData } from '../redux/actions';
+import { loggedIn, getUserData } from '../redux/actions';
 
 export default function LoginForm() {
-
-    // Déclaration des états pour gérer les entrées du formulaire et les messages d'erreur.
+    // États pour stocker les valeurs des champs du formulaire et les erreurs éventuelles
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -19,44 +16,32 @@ export default function LoginForm() {
     const [messageError, setMessageError] = useState('');
 
     let navigate = useNavigate();
-
-    // Utilisation de Redux pour dispatcher des actions et accéder à l'état global.
     const dispatch = useDispatch();
     const isLogged = useSelector((state) => state.loggedReducer);
 
     const handleSubmit = async (e) => {
-        e.preventDefault();// Empêche le rechargement de la page
+        e.preventDefault(); 
 
+        // Validation des champs email et mot de passe
         if (!email) setEmailError('Please enter a valid email');
-        else setEmailError('');
         if (!password) setPasswordError('Please enter a password');
-        else setPasswordError('');
 
-        // Création de l'objet utilisateur et appel API pour obtenir le token.
+    
         const user = { email, password };
-        console.log(user);
+        const dataToken = await getToken(user); // Appel à l'API pour obtenir le token
 
-        const dataToken = await getToken(user);
-        console.log(dataToken);
-
-        // Gestion de la réponse du token et stockage dans localStorage.
-        if (dataToken.status === 200) {
+        if (dataToken.status === 200) { //si statut ok utilisateur co
             localStorage.setItem('token', dataToken.body.token);
+            const token = localStorage.getItem('token'); 
+
+            if (token) {
+                const dataUser = await getUser(token);
+                dispatch(getUserData(dataUser.body.firstName, dataUser.body.lastName));  // Mise à jour des données de l'utilisateur dans Redux
+                dispatch(loggedIn());
+                return navigate('/user');
+            }
         } else {
             setMessageError('Invalid user');
-        }
-
-        const token = localStorage.getItem('token');
-
-        // Récupération du token et appel API pour obtenir les données de l'utilisateur.
-        if (token) {
-            const dataUser = await getUser(token);
-            console.log(dataUser);
-            dispatch(getUserData(dataUser.body.firstName, dataUser.body.lastName));
-            dispatch(loggedIn());
-            console.log(dataUser.body.firstName);
-            console.log(dataUser.body.lastName);
-            return navigate('/user');
         }
     };
     

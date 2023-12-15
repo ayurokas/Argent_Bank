@@ -1,7 +1,3 @@
-// Ce composant React, User, affiche les informations du compte utilisateur si connecté, sinon redirige vers la page de connexion. 
-//Il utilise Redux pour vérifier l'état de connexion et affiche des détails de compte.
-
-
 import React from 'react';
 import UserName from '../components/UserName';
 import { useSelector } from 'react-redux';
@@ -9,10 +5,13 @@ import { Routes, Route } from 'react-router-dom'
 import Login from "./Login";
 
 export default function User() {
+
+    // extraire l'état de connexion de l'utilisateur depuis Redux
     const isLogged = useSelector((state) => state.loggedReducer);
+    
 
     return (
-        isLogged
+        isLogged // si connecter ok info
             ? (
         <main className='main bg-dark'>
             <UserName />

@@ -8,8 +8,10 @@ const initialState = false;
 
 const loggedReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGGED_IN: return true;
-    case LOGGED_OUT: return false;
+    case LOGGED_IN: 
+    return true; // Si l'action est LOGGED_IN, retourner `true` pour indiquer que l'utilisateur est connecté
+    case LOGGED_OUT: 
+    return false;// Si l'action est LOGGED_OUT, retourner `false` pour indiquer que l'utilisateur est déconnecté
     default: return state;
   };
 }
