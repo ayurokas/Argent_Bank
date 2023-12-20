@@ -1,4 +1,4 @@
-// Ce composant React affiche une page d'erreur 404. Il utilise une image et fournit un lien pour retourner à la page d'accueil.
+// Ce composant React affiche une page d'erreur 404.
 
 import React from 'react';
 import { Link } from 'react-router-dom';

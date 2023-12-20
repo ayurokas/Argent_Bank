@@ -13,7 +13,7 @@ const updateProfileReducer = (state = initialState, { type, payload }) => {
         return {
             ...state,
             firstName: payload.payload.firstName,
-            lastName: payload.payload.lastName,
+            lastName: payload.payload.lastName,//mise a jour 
         };
     };
     return state;

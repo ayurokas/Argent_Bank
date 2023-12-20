@@ -1,4 +1,4 @@
-// Ce composant React, User, affiche les informations du compte utilisateur si connecté, sinon redirige vers la page de connexion. 
+// affiche les informations du compte utilisateur
 //Il utilise Redux pour vérifier l'état de connexion et affiche des détails de compte.
 
 
@@ -12,7 +12,7 @@ export default function User() {
     const isLogged = useSelector((state) => state.loggedReducer);
 
     return (
-        isLogged
+        isLogged //verifie si utilisateur co 
             ? (
         <main className='main bg-dark'>
             <UserName />

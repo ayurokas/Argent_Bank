@@ -1,4 +1,5 @@
-// Ce composant React utilise Hooks pour les états locaux, React Router pour la navigation, et Redux pour l'état global. Il permet la modification du profil utilisateur via un appel API.
+ 
+//Il permet la modification du profil utilisateur via un appel API.
 
 
 import React, { useState, useEffect } from 'react';
@@ -7,29 +8,27 @@ import { useNavigate } from 'react-router';
 import { updateProfile } from '../utils/apiFetch';
 import { getUserData } from '../redux/actions';
 
-// Composant fonctionnel UserName pour gérer le profil d'un utilisateur.
 export default function UserName() {
-    // Déclaration des états pour le nouveau prénom et nom, et un état pour la modification.
+
+    //gere modif du profil 
     const [newFirstName, setNewFirstName] = useState();
     const [newLastName, setNewLastName] = useState();
     const [isEditing, setIsEditing] = useState(false);
 
-    // États pour le placeholder des champs de saisie.
     const [placeholderFirstName, setPlaceholderFirstName] = useState("Your first name");
     const [placeholderLastName, setPlaceholderLastName] = useState("Your last name");
 
-    // Utilisation du hook useNavigate pour la redirection.
-    let navigate = useNavigate();
 
-    // Utilisation de Redux pour dispatcher des actions et accéder à l'état global.
-    const dispatch = useDispatch();
+    let navigate = useNavigate();//hook
+
+    const dispatch = useDispatch(); //envoie action store
     const isLogged = useSelector((state) => state.loggedReducer);
-    const dataUser = useSelector((state) => state.getUserReducer);
+    const dataUser = useSelector((state) => state.getUserReducer);//accede a l'etat globat 
 
-    // Utilisation de useEffect pour gérer le redimensionnement de la fenêtre et ajuster les placeholders.
+    //maj pour mettre a jour les placeholder
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 920) {
+            if (window.innerWidth < 920) { //< plus petit
                 setPlaceholderFirstName("First Name");
                 setPlaceholderLastName("Last Name");
             } else {
@@ -44,20 +43,18 @@ export default function UserName() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // Fonction pour gérer le changement de nom.
+    //modification du profil utilisateur
     const handleChange = async () => {
         const token = localStorage.getItem('token');
         const newProfile = await updateProfile(token, newFirstName, newLastName);
-        dispatch(getUserData(newProfile.body.firstName, newProfile.body.lastName));
+        dispatch(getUserData(newProfile.body.firstName, newProfile.body.lastName));//maj avec les nouvelle donnee users
         setIsEditing(false);
     };
 
-    // Redirection si l'utilisateur n'est pas connecté.
     if (isLogged === false) {
         navigate('/login');
     }
 
-    // Rendu du composant, affichant différentes interfaces selon que l'utilisateur édite son profil ou non.
     return (
         <div className="header">
             {isEditing ? (

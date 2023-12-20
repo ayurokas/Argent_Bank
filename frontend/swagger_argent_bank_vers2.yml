@@ -80,7 +80,7 @@ paths:
         "200":
           description: "Successfully got a user's specific transaction!"
           schema:
-            $ref: "#/definitions/TransactionDetails"
+            $ref: "#/definitions/Transaction"
         "404":
           description: "Requested Resource Not Found"
         "500":
@@ -118,7 +118,7 @@ paths:
         "200":
           description: "Successfully updated a user's specific transaction!"
           schema:
-            $ref: "#/definitions/TransactionUpdateResponse202"
+            $ref: "#/definitions/Transaction"
         "404":
           description: "Requested Resource Not Found"
         "500":
@@ -151,7 +151,7 @@ definitions:
       notes:
         type: "string"
         description: "Additional notes regarding the transaction"
-  TransactionUpdateResponse202:
+  Transaction:
     type: "object"
     properties:
       transactionId:

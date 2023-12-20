@@ -1,5 +1,5 @@
-// Ce composant React gère le formulaire de connexion. Il utilise des Hooks pour les états locaux, React Router pour la navigation, et Redux pour l'état global. 
-//Les appels API sont effectués pour obtenir le token et les données de l'utilisateur, avec une gestion des erreurs et une redirection après la connexion réussie.
+// Ce composant React gère le formulaire de connexion
+//Les appels API sont effectués pour obtenir le token et les données de l'utilisateur une redirection après la connexion réussie.
 
 import { useEffect } from 'react';
 import { React, useState } from 'react';
@@ -11,7 +11,7 @@ import { getUserData } from '../redux/actions';
 
 export default function LoginForm() {
 
-    // Déclaration des états pour gérer les entrées du formulaire et les messages d'erreur.
+    // États locaux pour gérer les champs du formulaire et les erreurs
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -20,8 +20,7 @@ export default function LoginForm() {
 
     let navigate = useNavigate();
 
-    // Utilisation de Redux pour dispatcher des actions et accéder à l'état global.
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); //gere l'etat global
     const isLogged = useSelector((state) => state.loggedReducer);
 
     const handleSubmit = async (e) => {
@@ -32,14 +31,12 @@ export default function LoginForm() {
         if (!password) setPasswordError('Please enter a password');
         else setPasswordError('');
 
-        // Création de l'objet utilisateur et appel API pour obtenir le token.
         const user = { email, password };
         console.log(user);
 
-        const dataToken = await getToken(user);
+        const dataToken = await getToken(user);//app api obtenir token
         console.log(dataToken);
 
-        // Gestion de la réponse du token et stockage dans localStorage.
         if (dataToken.status === 200) {
             localStorage.setItem('token', dataToken.body.token);
         } else {
@@ -48,11 +45,11 @@ export default function LoginForm() {
 
         const token = localStorage.getItem('token');
 
-        // Récupération du token et appel API pour obtenir les données de l'utilisateur.
+        //gere une suite d'action apres une co reussi
         if (token) {
             const dataUser = await getUser(token);
             console.log(dataUser);
-            dispatch(getUserData(dataUser.body.firstName, dataUser.body.lastName));
+            dispatch(getUserData(dataUser.body.firstName, dataUser.body.lastName)); //Dispatch des actions Redux pour mettre à jour l'état global
             dispatch(loggedIn());
             console.log(dataUser.body.firstName);
             console.log(dataUser.body.lastName);

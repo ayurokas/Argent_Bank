@@ -1,4 +1,4 @@
-// Ce composant React Header utilise Redux pour gérer l'état de connexion et affiche des liens de navigation. 
+ 
 // Il utilise React Router pour la navigation et affiche le nom de l'utilisateur si connecté.
 
 import React from "react";
@@ -8,11 +8,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { loggedOut } from "../redux/actions";
 
 export default function Header() {
-   // Utilisation de useSelector pour accéder à l'état de connexion et au nom de l'utilisateur depuis Redux.
+   //accéder à l'état de connexion et au nom de l'utilisateur
   const isLogged = useSelector((state) => state.loggedReducer);
   const userName = useSelector((state) => state.getUserReducer);
 
-  // Utilisation de useDispatch pour dispatcher des actions Redux.
   const dispatch = useDispatch();
 
   return (

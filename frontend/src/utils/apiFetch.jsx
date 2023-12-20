@@ -1,5 +1,8 @@
+
+
 const APIURL = "http://localhost:3001";
 
+//obtenir token
 export const getToken = async (user) => {
     const response = await fetch(`${APIURL}/api/v1/user/login`, {
         method: "POST",
@@ -11,6 +14,7 @@ export const getToken = async (user) => {
     return response.json();
 };
 
+//obtenir info user
 export const getUser = async (token) => {
     const response = await fetch(`${APIURL}/api/v1/user/profile`, {
         method: "POST",
@@ -22,6 +26,7 @@ export const getUser = async (token) => {
     return response.json();
 }
 
+//mise a jour 
 export const updateProfile = async (token, firstName, lastName) => {
     const response = await fetch(`${APIURL}/api/v1/user/profile`, {
         method: "PUT",

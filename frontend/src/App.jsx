@@ -11,13 +11,11 @@ import User from "./pages/User";
 import { Routes, Route } from "react-router-dom";
 
 
-// Composant principal de l'application qui gère les routes et la structure de la page
-
 function App() {
   return (
     <div>
       <Header />
-      <Routes>
+      <Routes> {/* ensemble de route */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user/*" element={<User />} />

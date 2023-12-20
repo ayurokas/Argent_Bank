@@ -1,5 +1,4 @@
-// Ce composant React, Home, affiche la page d'accueil avec des messages promotionnels et des icônes représentatives. 
-//Il met en avant les avantages de l'ouverture d'un compte d'épargne chez Argent Bank.
+// affiche la page d'accueil
 
 import React from 'react';
 import iconChat from '../assets/icon-chat.png';
